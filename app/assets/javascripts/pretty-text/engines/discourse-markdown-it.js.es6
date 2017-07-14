@@ -151,7 +151,7 @@ export function setup(opts, siteSettings, state) {
   }
 
   // we got to require this late cause bundle is not loaded in pretty-text
-  Helpers = Helpers || requirejs('pretty-text/engines/markdown-it/helpers');
+  Helpers = Helpers || requirejs('pretty-text/engines/discourse-markdown/helpers');
 
   opts.markdownIt = true;
 
@@ -227,10 +227,11 @@ export function setup(opts, siteSettings, state) {
   opts.markdownIt = true;
   opts.setup = true;
 
-  if (!opts.discourse.sanitizer) {
+  if (!opts.discourse.sanitizer || !opts.sanitizer) {
     const whiteLister = new WhiteLister(opts.discourse);
     opts.sanitizer = opts.discourse.sanitizer = (!!opts.discourse.sanitize) ? a=>sanitize(a, whiteLister) : a=>a;
   }
+
 }
 
 export function cook(raw, opts) {
