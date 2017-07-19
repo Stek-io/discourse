@@ -49,7 +49,7 @@ function rule(state, startLine, endLine) {
   let oldParentType = state.parentType;
   state.parentType = 'paragraph';
 
-  token = state.push('paragraph_open', 'p', 0);
+  token = state.push('paragraph_open', 'p', 1);
   token.map = [startLine, state.line];
 
   token = state.push('inline', '', 0);
@@ -65,9 +65,6 @@ function rule(state, startLine, endLine) {
 
 
 export function setup(helper) {
-
-  if (!helper.markdownIt) { return; }
-
   helper.registerPlugin(md=>{
      md.block.ruler.before('html_block', 'html_img', rule, {alt: ['fence']});
   });
